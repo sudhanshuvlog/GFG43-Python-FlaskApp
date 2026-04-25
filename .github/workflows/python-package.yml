@@ -41,6 +41,7 @@ jobs: #collection of jobs
 
   sonarqube-analysis: #job2
     name: Build and analyze
+    needs: python-tests #job2 depends on job1
     runs-on: ubuntu-latest
     
     steps:
@@ -60,7 +61,7 @@ jobs: #collection of jobs
 
   docker-image-build-and-push: #job3
     runs-on: ubuntu-latest
-    needs: python-tests #job3 depends on job1
+    needs: ['python-tests', 'sonarqube-analysis'] #job3 depends on job1 and job2
     steps:
       -
         name: Login to Docker Hub

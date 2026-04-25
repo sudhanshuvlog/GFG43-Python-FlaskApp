@@ -16,7 +16,7 @@ jobs: #collection of jobs
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9", "3.10", "3.11"]
+        python-version: ["3.11"]
 
     steps: #tasks inside a job
     - uses: actions/checkout@v4

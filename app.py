@@ -18,7 +18,6 @@ def create_app():
         x=5
         while x>1:
             print(x)
-        break
         return 'Hi hi GFG43 25th april 2026 12345'
 
     return app

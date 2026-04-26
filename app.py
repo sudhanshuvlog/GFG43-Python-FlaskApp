@@ -2,23 +2,12 @@ from flask import Flask
 
 
 def create_app():
-    x=10
-    y=10
-    z=10
     app = Flask(__name__)
     print("inside create_app function")
 
     @app.route('/')
     def home():
         print("inside home function")
-        return 'Hi hi GFG43 25th april 2026 12345'
-
-    @app.route('/test')
-    def test():
-        print("inside home function")
-        x=5
-        while x>1:
-            print(x)
         return 'Hi hi GFG43 25th april 2026 12345'
 
     return app

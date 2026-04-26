@@ -85,6 +85,11 @@ jobs: #collection of jobs
     runs-on: self-hosted #self-hosted-runner
     needs: ['python-tests', 'sonarqube-analysis'] #job3 depends on job1 and job2
     steps:
+      - 
+        name: "Install docker"
+        run: | 
+          sudo yum install docker -y
+          sudo systemctl start docker 
       -
         name: Login to Docker Hub
         uses: docker/login-action@v4

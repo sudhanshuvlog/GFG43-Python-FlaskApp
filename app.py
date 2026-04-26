@@ -4,6 +4,7 @@ from flask import Flask
 def create_app():
     x=10
     y=10
+    z=10
     app = Flask(__name__)
     print("inside create_app function")
 

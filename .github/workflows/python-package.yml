@@ -39,6 +39,12 @@ jobs: #collection of jobs
       run: |
         pytest --cov=app --cov-report=xml:coverage.xml
 
+    - name: upload the coverage file in artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report
+        path: coverage.xml
+
   sonarqube-analysis: #job2
     name: Build and analyze
     needs: python-tests #job2 depends on job1
@@ -48,13 +54,23 @@ jobs: #collection of jobs
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: download coverage report from artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-report
+
       - name: test coverage xml file
         run: |
           ls -l
+          cat coverage.xml
+
       - uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        args: >
+        -Dsonar.python.coverage.reportPaths=coverage.xml
       # If you wish to fail your job when the Quality Gate is red, uncomment the
       # following lines. This would typically be used to fail a deployment.
       - uses: SonarSource/sonarqube-quality-gate-action@v1
